@@ -17,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [CategoryParentController::class, 'index'])->name('category_parent.index');
 Route::get('create', [CategoryParentController::class, 'create'])->name('category_parent.create');
 Route::post('store', [CategoryParentController::class, 'store'])->name('category_parent.store');
+Route::post('get-name', [CategoryParentController::class, 'getCategoryName'])->name('category_parent.getCategoryName');

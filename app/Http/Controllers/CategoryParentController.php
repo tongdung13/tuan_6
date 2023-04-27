@@ -24,19 +24,30 @@ class CategoryParentController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),
-        [
-            'code' => 'required',
-            'category_id' => 'required',
-            'category_name' => 'required',
-        ],
-        [
-            'code.required' => 'Vui long nhap code',
-            'category_id.required' => 'Vui long chon category id',
-            'category_name.required' => 'Vui long chon name category',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'code' => 'required',
+                'category_id' => 'required',
+                'category_name' => 'required',
+            ],
+            [
+                'code.required' => 'Vui long nhap code',
+                'category_id.required' => 'Vui long chon category id',
+                'category_name.required' => 'Vui long chon name category',
+            ]
+        );
         if ($validator->fails()) {
             return redirect()->route('category_parent.create')->withErrors($validator)->withInput($request->all());
         }
+    }
+
+    public function getCategoryName(Request $request)
+    {
+        $id = $request->get('id');
+
+        $categoryName = Category::query()
+            ->where('id', $id)->first();
+        return response()->json($categoryName);
     }
 }

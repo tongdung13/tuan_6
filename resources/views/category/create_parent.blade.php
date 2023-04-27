@@ -107,7 +107,7 @@
             strString += '<label for="inputText" class="col-lg-2 control-label">Category Name</label>';
             strString += ' <div class="col-lg-10">';
             strString +=
-                '<input type="text" class="form-control" name="category_name" id="inputText" placeholder="Enter Category Name" required readonly>';
+                '<input type="text" class="form-control" name="category_name" placeholder="Enter Category Name" required readonly>';
             strString += '</div>';
             strString += '</div>';
             strString += '</div>';

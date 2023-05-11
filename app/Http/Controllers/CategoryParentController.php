@@ -40,6 +40,23 @@ class CategoryParentController extends Controller
         if ($validator->fails()) {
             return redirect()->route('category_parent.create')->withErrors($validator)->withInput($request->all());
         }
+        $data = $request->get('data');
+        dd($data);
+        $arr = [];
+        foreach ($data as $value) {
+            if (is_array($value->code) && count($value->code) > 0) {
+                foreach ($value->code as $code) {
+                    $arr[] = [
+                        'code' => $code,
+                        'category_id' => $value->category_id,
+                        'category_name' => $value->category_name,
+                    ];
+                }
+                CategoryParent::insert($arr);
+                $arr = [];
+            }
+        }
+        return redirect()->route('category_parent.index');
     }
 
     public function getCategoryName(Request $request)
@@ -47,7 +64,8 @@ class CategoryParentController extends Controller
         $id = $request->get('id');
 
         $categoryName = Category::query()
-            ->where('id', $id)->first();
+            ->where('id', $id)
+            ->select('name')->first();
         return response()->json($categoryName);
     }
 }
